@@ -124,7 +124,7 @@ class FFmpegCommander(private val context: Context, private val channelName: Str
         utility.deleteFile(file)
 
         val cmd = arrayOf("-i", path, "-ss", startTime.toString(), "-t", gifDuration.toString(),
-                "-vf", "scale=640:-2", "-r", "15", file.absolutePath)
+                "-vf", "scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse", "-r", "15", file.absolutePath)
 
         this.ffTask = ffmpeg.execute(cmd, object : ExecuteBinaryResponseHandler() {
             override fun onProgress(message: String) {
